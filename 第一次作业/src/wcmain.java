@@ -70,7 +70,36 @@ public class wcmain {
 				}
 			}
 		else {
-			
+			while((n=f.read())!=-1) {
+				cchar++;
+				if(n=='\n') {
+					cline++;
+					cchar=cchar-2;
+				}
+				if(wspace.indexOf(n)!=-1) {
+					if(lastnowhile)
+						cword++;
+					lastnowhile=false;
+					lastword=true;
+				}
+				else {
+					lastnowhile=true;
+					lastword=false;
+				}
+				
+			}
+		}
+		for(int i=0;i<use.length;i++) {
+			if(use[i]==1) {
+				switch (i) {
+				case 0:System.out.println(file+",字符数："+cchar);break;
+				case 1:System.out.println(file+",单词数："+cword);break;
+				case 2:System.out.println(file+",行数："+cline);break;
+
+				default:
+					break;
+				}
+			}
 		}
 		
 		}
