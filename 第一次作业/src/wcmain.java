@@ -45,22 +45,7 @@ public class wcmain {
 				if(wspace.indexOf(n)==-1) {
 					list.append((char)n);
 				}
-				if(wspace.indexOf(n)!=-1) {
-					if(lastnowhile) {
-						cword++;
-						for(int i=0;i<stop.size();i++) {
-							if(list.toString().equals(stop.get(i))) 
-								cword--;
-						}
-							list.delete(0, list.length());
-						}
-						lastnowhile=false;
-						lastword=true;
-					}
-					else {
-						lastnowhile=true;
-						lastword=false;
-					}
+				
 				}
 				if(!lastword) {
 					for(int i=0;i<stop.size();i++) {
