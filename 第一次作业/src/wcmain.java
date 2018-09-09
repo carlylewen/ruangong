@@ -45,7 +45,22 @@ public class wcmain {
 				if(wspace.indexOf(n)==-1) {
 					list.append((char)n);
 				}
-				
+				if(wspace.indexOf(n)!=-1) {
+					if(lastnowhile) {
+						cword++;
+						for(int i=0;i<stop.size();i++) {
+							if(list.toString().equals(stop.get(i))) 
+								cword--;
+						}
+							list.delete(0, list.length());
+						}
+						lastnowhile=false;
+						lastword=true;
+					}
+					else {
+						lastnowhile=true;
+						lastword=false;
+					}
 				}
 				if(!lastword) {
 					for(int i=0;i<stop.size();i++) {
@@ -63,7 +78,7 @@ public class wcmain {
 				}
 				if(wspace.indexOf(n)!=-1) {
 					if(lastnowhile)
-						cword++;
+						cword++
 					lastnowhile=false;
 					lastword=true;
 				}
@@ -77,9 +92,9 @@ public class wcmain {
 		for(int i=0;i<use.length;i++) {
 			if(use[i]==1) {
 				switch (i) {
-				case 0:System.out.println(file+",字符数："+cchar);break;
-				case 1:System.out.println(file+",单词数："+cword);break;
-				case 2:System.out.println(file+",行数："+cline);break;
+				case 0:System.out.println(file);
+				case 1:System.out.println(file);
+				case 2:System.out.println(file);
 
 				default:
 					break;
