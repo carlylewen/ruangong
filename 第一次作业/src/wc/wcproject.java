@@ -1,8 +1,11 @@
 package wc;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
@@ -56,41 +59,29 @@ public class wcproject {
 	//输出函数
 	private static void output() {
 		if(flag==1) {
-			System.out.println(cline);
-			System.out.println(cword);
-			System.out.println(cchar);
-			System.out.println(codeline);
-			System.out.println(noteline);
-			System.out.println(spaceline);
-			System.out.print("lines");
-			System.out.print("words");
-			System.out.print("chars");
-			System.out.print("codelines");
-			System.out.print("notelines");
-			System.out.print("spacelines");
+			System.out.println("lines:"+cline);
+			System.out.print("words:"+cword);
+			System.out.print("chars:"+cchar);
+			System.out.print("codelines:"+codeline);
+			System.out.print("notelines:"+noteline);
+			System.out.print("spacelines:"+spaceline);
 		}
 		else {
 			for(int i=0;i<sparameter.length-1;i++) {
 				if(sparameter.equals("-c")) {
-					System.out.println(cchar);
-					System.out.print("chars");
+					System.out.print("chars:"+cchar);
 					
 				}
 				if(sparameter.equals("-l")) {
-					System.out.println(cline);
-					System.out.print("lines");
+					System.out.println("lines:"+cline);
 				}
 				if(sparameter.equals("-w")) {
-					System.out.println(cword);
-					System.out.print("words");
+					System.out.print("words:"+cword);
 				}
 				if(sparameter.equals("-a")) {
-					System.out.println(codeline);
-					System.out.println(noteline);
-					System.out.println(spaceline);
-					System.out.print("codelines");
-					System.out.print("notelines");
-					System.out.print("spacelines");
+					System.out.print("codelines:"+codeline);
+					System.out.print("notelines:"+noteline);
+					System.out.print("spacelines:"+spaceline);
 				}
 			}
 		}
@@ -113,8 +104,32 @@ public class wcproject {
 		File file =new File(filename);
 		if(file.exists()) {
 			try {
-				
-				
+				FileInputStream filein =new FileInputStream(file);//输入流读取文件
+				InputStreamReader inputr=new InputStreamReader(filein,"UFT-8");
+				BufferedReader bread =new BufferedReader(inputr);
+				String line="";
+				StringBuffer buffer =new StringBuffer();
+				while((line=bread.readLine())!=null) {
+					cline++;
+					buffer.append(line);
+					cchar+=line.length();
+					
+					//空行
+					if(bread.readLine().equals("")) {
+						spaceline++;
+						continue;
+					}
+					//注释行
+					int a=line.indexOf("/");
+					int b=line.substring(a+1).indexOf("/");
+					if(b==0) {
+						noteline++;
+						continue;
+					}
+					//代码行
+					codeline++;
+					
+				}
 				
 				
 				
