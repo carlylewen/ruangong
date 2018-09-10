@@ -1,5 +1,9 @@
 package wc;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
@@ -40,19 +44,89 @@ public class wcproject {
 			//获取文件名
 			filename =split[messlength-1];
 			if(flag1==1) {
-				
+				digui();//-s
 			}
 			else {
-				
+				extend();//扩展功能
+				output();//基础功能
 			}
 		}
 		
-
 	}
 	//输出函数
 	private static void output() {
+		if(flag==1) {
+			System.out.println(cline);
+			System.out.println(cword);
+			System.out.println(cchar);
+			System.out.println(codeline);
+			System.out.println(noteline);
+			System.out.println(spaceline);
+			System.out.print("lines");
+			System.out.print("words");
+			System.out.print("chars");
+			System.out.print("codelines");
+			System.out.print("notelines");
+			System.out.print("spacelines");
+		}
+		else {
+			for(int i=0;i<sparameter.length-1;i++) {
+				if(sparameter.equals("-c")) {
+					System.out.println(cchar);
+					System.out.print("chars");
+					
+				}
+				if(sparameter.equals("-l")) {
+					System.out.println(cline);
+					System.out.print("lines");
+				}
+				if(sparameter.equals("-w")) {
+					System.out.println(cword);
+					System.out.print("words");
+				}
+				if(sparameter.equals("-a")) {
+					System.out.println(codeline);
+					System.out.println(noteline);
+					System.out.println(spaceline);
+					System.out.print("codelines");
+					System.out.print("notelines");
+					System.out.print("spacelines");
+				}
+			}
+		}
+		System.out.println("");
+	}
+	
+	//递归文件函数
+	private static void digui() {
 		
 	}
 	
+	//计算code、note、spaceline
+	private static void extend() {
+		cchar=0;
+		cword=0;
+		cline=0;
+		spaceline=0;
+		codeline=0;
+		noteline=0;
+		File file =new File(filename);
+		if(file.exists()) {
+			try {
+				
+				
+				
+				
+				
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+			
+		}
+		else {
+			System.out.println("failed!!");
+		}
+	}
 
 }
