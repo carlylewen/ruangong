@@ -11,8 +11,10 @@ public class normaltest {
 	private static int cword;
 	private static int spaceline;
 	// 空行
-	private static int codeline;// 代码行
-	private static int noteline;// 注释行
+	private static int codeline;
+	// 代码行
+	private static int noteline;
+	// 注释行
 	private static JFileChooser chooser;
 	private static int flag = 0;
 }
