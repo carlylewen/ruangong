@@ -72,27 +72,32 @@ public class wcproject {
 	// 输出函数
 	private static void output() {
 		if (flag == 1) {
-			System.out.println("字符数：" + cchar);
-			System.out.println("行数：" + cline);
-			System.out.println("单词数：" + cword);
-			System.out.println("空行：" + spaceline);
-			System.out.println("代码行：" + codeline);
-			System.out.println("注释行：" + noteline);
+			System.out.println("字符数："+cchar);
+			System.out.println("行数："+cline);
+			System.out.println("单词数："+cword);
+			System.out.println("空行："+spaceline);
+
+			System.out.println("代码行："+codeline);
+			System.out.println("注释行："+noteline);
 		} else {
 			for (int i = 0; i < sparameter.length; i++) {
 				if (sparameter[i].equals("-c")) {
-					System.out.println("字符数：" + cchar);
+
+					System.out.println("字符数："+cchar);
+
 				}
 				if (sparameter[i].equals("-l")) {
-					System.out.println("行数：" + cline);
+		
+					System.out.println("行数："+cline);
 				}
 				if (sparameter[i].equals("-w")) {
-					System.out.println("单词数：" + cword);
+					System.out.println("单词数："+cword);
 				}
 				if (sparameter[i].equals("-a")) {
-					System.out.println("空行：" + spaceline);
-					System.out.println("代码行：" + codeline);
-					System.out.println("注释行：" + noteline);
+					System.out.println("空行："+spaceline);
+
+					System.out.println("代码行："+codeline);
+					System.out.println("注释行："+noteline);
 				}
 			}
 		}
@@ -107,12 +112,12 @@ public class wcproject {
 		spaceline = 0;
 		codeline = 0;
 		noteline = 0;
-		boolean q = false;
+		boolean q=false;
 		File file = new File(filename);
 		if (file.exists()) {
 			try {
 				FileInputStream filein = new FileInputStream(file);// 输入流读取文件
-
+				
 				BufferedReader bread = new BufferedReader(new InputStreamReader(filein));
 				String line = "";
 				StringBuffer buffer = new StringBuffer();
@@ -120,35 +125,43 @@ public class wcproject {
 					cline++;
 					buffer.append(line);
 					cchar += line.length();
+					line=line.trim();
 
 					// 空行,注释行，代码行
-					String begin = "\\s*/\\*.*";
-					String end = ".*\\*/\\s*";
-					String x = "//.*";
-					String space = "\\s*";
-					if (line.matches(begin) && line.matches(end)) {
+					String begin="\\s*/\\*.*";
+					String end =".*\\*/\\s*";
+					String x= "//.*";
+					String space="\\s*";
+					if(line.matches(begin)&&line.matches(end)) {
 						++noteline;
 					}
-					if (line.matches(begin)) {
+					if(line.matches(begin)) {
 						++noteline;
-						q = true;
-					} else if (line.matches(end)) {
+						q=true;
+					}
+					else if(line.matches(end)) {
 						++noteline;
-						q = false;
-					} else if (line.matches(space)) {
+						q=false;
+					}
+					else if(line.matches(space)) {
 						++spaceline;
-					} else if (line.matches(x)) {
+					}
+					else if(line.matches(x)) {
 						++noteline;
-					} else if (q) {
+					}
+					else if(q) {
 						++noteline;
-					} else {
+					}
+					else {
 						++codeline;
 					}
+					
+
 
 				}
 				cword = buffer.toString().split("\\s+").length;
 				bread.close();
-
+				
 				filein.close();
 
 			} catch (FileNotFoundException e) {
