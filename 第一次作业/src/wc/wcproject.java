@@ -72,40 +72,27 @@ public class wcproject {
 	// 输出函数
 	private static void output() {
 		if (flag == 1) {
-			System.out.print("字符数：");
-			System.out.println(cchar);
-			System.out.print("行数：");
-			System.out.println(cline);
-			System.out.print("单词数：");
-			System.out.println(cword);
-			System.out.print("空行：");
-			System.out.println(spaceline);
-			System.out.print("代码行：");
-			System.out.println(codeline);
-			System.out.print("注释行：");
-			System.out.println(noteline);
+			System.out.println("字符数：" + cchar);
+			System.out.println("行数：" + cline);
+			System.out.println("单词数：" + cword);
+			System.out.println("空行：" + spaceline);
+			System.out.println("代码行：" + codeline);
+			System.out.println("注释行：" + noteline);
 		} else {
 			for (int i = 0; i < sparameter.length; i++) {
 				if (sparameter[i].equals("-c")) {
-					System.out.print("字符数：");
-					System.out.println(cchar);
-
+					System.out.println("字符数：" + cchar);
 				}
 				if (sparameter[i].equals("-l")) {
-					System.out.print("行数：");
-					System.out.println(cline);
+					System.out.println("行数：" + cline);
 				}
 				if (sparameter[i].equals("-w")) {
-					System.out.print("单词数：");
-					System.out.println(cword);
+					System.out.println("单词数：" + cword);
 				}
 				if (sparameter[i].equals("-a")) {
-					System.out.print("空行：");
-					System.out.println(spaceline);
-					System.out.print("代码行：");
-					System.out.println(codeline);
-					System.out.print("注释行：");
-					System.out.println(noteline);
+					System.out.println("空行：" + spaceline);
+					System.out.println("代码行：" + codeline);
+					System.out.println("注释行：" + noteline);
 				}
 			}
 		}
@@ -120,12 +107,13 @@ public class wcproject {
 		spaceline = 0;
 		codeline = 0;
 		noteline = 0;
+		boolean q = false;
 		File file = new File(filename);
 		if (file.exists()) {
 			try {
 				FileInputStream filein = new FileInputStream(file);// 输入流读取文件
-				InputStreamReader inputr = new InputStreamReader(filein);
-				BufferedReader bread = new BufferedReader(inputr);
+
+				BufferedReader bread = new BufferedReader(new InputStreamReader(filein));
 				String line = "";
 				StringBuffer buffer = new StringBuffer();
 				while ((line = bread.readLine()) != null) {
@@ -133,25 +121,34 @@ public class wcproject {
 					buffer.append(line);
 					cchar += line.length();
 
-					// 空行
-					if (bread.readLine().equals("")) {
-						spaceline++;
-						continue;
+					// 空行,注释行，代码行
+					String begin = "\\s*/\\*.*";
+					String end = ".*\\*/\\s*";
+					String x = "//.*";
+					String space = "\\s*";
+					if (line.matches(begin) && line.matches(end)) {
+						++noteline;
 					}
-					// 注释行
-					int a = line.indexOf("/");
-					int b = line.substring(a + 1).indexOf("/");
-					if (b == 0) {
-						noteline++;
-						continue;
+					if (line.matches(begin)) {
+						++noteline;
+						q = true;
+					} else if (line.matches(end)) {
+						++noteline;
+						q = false;
+					} else if (line.matches(space)) {
+						++spaceline;
+					} else if (line.matches(x)) {
+						++noteline;
+					} else if (q) {
+						++noteline;
+					} else {
+						++codeline;
 					}
-					// 代码行
-					codeline++;
 
 				}
 				cword = buffer.toString().split("\\s+").length;
 				bread.close();
-				inputr.close();
+
 				filein.close();
 
 			} catch (FileNotFoundException e) {
