@@ -49,8 +49,8 @@ public class wcproject {
 			// 获取文件名
 			filename = split[messlength - 1];
 
-			extend();// 扩展功能
-			output();// 基础功能
+			extend();// 统计功能
+			output();// 输出
 
 		}
 
